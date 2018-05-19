@@ -30,9 +30,6 @@
         }
     },
     "autoload": {
-        "classmap": [
-            "vendor/yiisoft/yii2/Yii.php"
-        ],
         "psr-4": {
             "dameter\\abstracts\\": "./src/"
         }
