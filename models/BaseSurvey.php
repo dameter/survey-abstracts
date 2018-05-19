@@ -24,7 +24,9 @@ abstract class BaseSurvey extends DActiveRecord
     public function rules()
     {
         return [
-
+            [['survey_id'], 'required'],
+            [['survey_id'], 'integer'],
+            [['name'], 'string', 'max' => 254],
         ];
     }
 
