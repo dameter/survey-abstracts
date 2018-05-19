@@ -4,6 +4,8 @@
 namespace dameter\abstracts\tests\unit\validators;
 
 use dameter\abstracts\validators\VariableNameValidator;
+use yii\base\DynamicModel;
+use yii\base\Model;
 
 /**
  * Class VariableNameValidatorTest
@@ -35,9 +37,9 @@ class VariableNameValidatorTest extends \Codeception\Test\Unit
             // non alpha first letters
             ["1", false],
             ["@", false], // allowed by SPSS, but not this
-            ['$', false],
+            ["#", false], // allowed by SPSS, but not this
+            ['$', false], // allowed by SPSS, but not this
             ["Ä", false],
-            ["#", false],
             ["-", false],
             ["_", false],
             ["Щ", false], // cyrillic
@@ -59,6 +61,23 @@ class VariableNameValidatorTest extends \Codeception\Test\Unit
              $this->assertTrue($val->validate($value));
         } else {
             $this->assertFalse($val->validate($value));
+        }
+    }
+
+    /**
+     * @dataProvider provideValues
+     */
+    public function testValidateAttribute($value, $isValid)
+    {
+        $val = new VariableNameValidator();
+
+        $model = new DynamicModel(['myAttribute' => $value]);
+        $model->addRule('myAttribute', VariableNameValidator::class)->validate();
+        $val->validateAttribute($model, 'myAttribute');
+        if ($isValid) {
+            $this->assertEmpty($model->errors);
+        } else {
+            $this->assertNotEmpty($model->errors);
         }
     }
 

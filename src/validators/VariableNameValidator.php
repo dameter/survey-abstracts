@@ -7,6 +7,8 @@ use yii\validators\StringValidator;
 
 /**
  * Class VariableNameValidator
+ * Validates the variable name based mainly on SPSS variable name limitations
+ * @link https://www.ibm.com/support/knowledgecenter/en/SSLVMB_23.0.0/spss/base/syn_variables_variable_names.html
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
  */
 class VariableNameValidator extends StringValidator
@@ -18,6 +20,7 @@ class VariableNameValidator extends StringValidator
 
     /** @var string $invalidFirstLetterMsg A message if invalid first letter */
     public $invalidFirstLetterMsg;
+
     /**
      * {@inheritdoc}
      */
@@ -36,13 +39,20 @@ class VariableNameValidator extends StringValidator
     {
         parent::validateAttribute($model, $attribute);
 
-        if (strpos($model->{$attribute}, ' ') !== false) {
-            $this->addError($model, $attribute, $this->containsSpacesMsg);
+        $value = $model->{$attribute};
+        if (!is_string($value)) {
+            $this->addError($model, $attribute, $this->message);
+        } else {
+            if (strpos($model->{$attribute}, ' ') !== false) {
+                $this->addError($model, $attribute, $this->containsSpacesMsg);
+            }
+
+            if (!ctype_alpha($model->{$attribute}[0])) {
+                $this->addError($model, $attribute, $this->invalidFirstLetterMsg);
+            }
+
         }
 
-        if (!ctype_alpha($model->{$attribute}[0])) {
-            $this->addError($model, $attribute, $this->invalidFirstLetterMsg);
-        }
     }
 
     /**
