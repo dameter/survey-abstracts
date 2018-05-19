@@ -2,6 +2,9 @@
 
 namespace dameter\abstracts\validators;
 
+use Yii;
+
+
 /**
  * Class VariableNameValidator
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
