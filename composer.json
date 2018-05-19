@@ -5,6 +5,12 @@
     "homepage": "http://dameter.org",
     "type": "project",
     "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Tõnis Ormisson",
+            "email": "tonis@andmemasin.eu"
+        }
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
@@ -21,10 +27,6 @@
     "extra": {
         "branch-alias": {
             "dev-master": "0.1.x-dev"
-        },
-        "asset-installer-paths": {
-            "npm-asset-library": "vendor/npm",
-            "bower-asset-library": "vendor/bower"
         }
     },
     "autoload": {
