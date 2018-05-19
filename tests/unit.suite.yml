@@ -7,3 +7,7 @@ modules:
     enabled:
         - Asserts
         - \Helper\Unit
+coverage:
+    enabled: true
+    include:
+        - src/*

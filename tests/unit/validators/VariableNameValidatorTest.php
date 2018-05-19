@@ -1,31 +1,55 @@
 <?php
 
 
-namespace dameter\abstracts\tests\validators;
+namespace dameter\abstracts\tests\unit\validators;
 
 use dameter\abstracts\validators\VariableNameValidator;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Class VariableNameValidatorTest
  * @package dameter\abstracts\tests\validators
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
  */
-class VariableNameValidatorTest extends TestCase
+class VariableNameValidatorTest extends \Codeception\Test\Unit
 {
-    public function setUp()
+
+    public function provideValues()
     {
-        parent::setUp();
+        return [
+            [['an array'], false],
+            ["String with spaces", false],
+            [true, false],
+            [false, false],
+
+            ["Q1", true],
+            ["with-dashes", true],
+            ["with_underscores", true],
+
+            // value with exactly 64 characters
+            ["CCDD1598CA2E0A715818561E49F2FBF9DADACBF1F5E75951956CBE0F3AE14393", true],
+            // value with exactly 64+1 characters
+            ["CCDD1598CA2E0A715818561E49F2FBF9DADACBF1F5E75951956CBE0F3AE143931", false],
+            // value with exactly 64-1 characters
+            ["CCDD1598CA2E0A715818561E49F2FBF9DADACBF1F5E75951956CBE0F3AE1439", true],
+
+
+        ];
+
     }
 
-    public function testValidateValue()
+
+    /**
+     * @dataProvider provideValues
+     */
+    public function testValidateValue($value, $isValid)
     {
         $val = new VariableNameValidator();
-
-        $this->assertFalse($val->validate(['not a string']));
-        $this->assertFalse($val->validate('String with spaces'));
-        $this->assertFalse($val->validate(true));
-        $this->assertFalse($val->validate(false));
+        if ($isValid) {
+             $this->assertTrue($val->validate($value));
+        } else {
+            $this->assertFalse($val->validate($value));
+        }
     }
+
 
 }
