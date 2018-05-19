@@ -32,6 +32,17 @@ class VariableNameValidatorTest extends \Codeception\Test\Unit
             // value with exactly 64-1 characters
             ["CCDD1598CA2E0A715818561E49F2FBF9DADACBF1F5E75951956CBE0F3AE1439", true],
 
+            // non alpha first letters
+            ["1", false],
+            ["@", false], // allowed by SPSS, but not this
+            ['$', false],
+            ["Ä", false],
+            ["#", false],
+            ["-", false],
+            ["_", false],
+            ["Щ", false], // cyrillic
+            ["漢", false], // chinese
+
 
         ];
 
