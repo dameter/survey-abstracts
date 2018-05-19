@@ -21,6 +21,8 @@ class VariableNameValidator extends StringValidator
     /** @var string $invalidFirstLetterMsg A message if invalid first letter */
     public $invalidFirstLetterMsg;
 
+    const ALLOWED_NON_ALPHA_CHARACTERS = ['.'];
+
     /**
      * {@inheritdoc}
      */
@@ -66,7 +68,6 @@ class VariableNameValidator extends StringValidator
         if (!is_null($validation)) {
             return $validation;
         }
-
         if (strpos($value, ' ') !== false) {
             return [$this->containsSpacesMsg, []];
         }
@@ -74,6 +75,14 @@ class VariableNameValidator extends StringValidator
             return [$this->invalidFirstLetterMsg, []];
         }
         return null;
+    }
+
+    private function containsInvalidCharacters($value)
+    {
+        if (ctype_punct()) {
+
+        }
+
     }
 
 
