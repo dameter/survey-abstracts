@@ -21,7 +21,10 @@ class VariableNameValidator extends StringValidator
     /** @var string $invalidFirstLetterMsg A message if invalid first letter */
     public $invalidFirstLetterMsg;
 
-    const ALLOWED_NON_ALPHA_CHARACTERS = ['.'];
+    /** @var string $containsInvalidCharsMsg A message if contains invalid characters */
+    public $containsInvalidCharsMsg;
+
+    const ALLOWED_NON_ALPHA_CHARACTERS = ['.', '-', '_'];
 
     /**
      * {@inheritdoc}
@@ -30,7 +33,8 @@ class VariableNameValidator extends StringValidator
     {
         parent::init();
         $this->containsSpacesMsg = \Yii::t('dmabstract', "{attribute} must not contain spaces!");
-        $this->containsSpacesMsg = \Yii::t('dmabstract', "The first character of {attribute} must be a letter!");
+        $this->invalidFirstLetterMsg = \Yii::t('dmabstract', "The first character of {attribute} must be a letter!");
+        $this->containsInvalidCharsMsg = \Yii::t('dmabstract', "{attribute} contains invalid characters!");
     }
 
 
@@ -53,6 +57,9 @@ class VariableNameValidator extends StringValidator
                 $this->addError($model, $attribute, $this->invalidFirstLetterMsg);
             }
 
+            if ($this->containsInvalidCharacters($model->{$attribute})) {
+                $this->addError($model, $attribute, $this->containsInvalidCharsMsg);
+            }
         }
 
     }
@@ -74,16 +81,30 @@ class VariableNameValidator extends StringValidator
         if (!ctype_alpha($value[0])) {
             return [$this->invalidFirstLetterMsg, []];
         }
+        if ($this->containsInvalidCharacters($value)) {
+            return [$this->containsInvalidCharsMsg, []];
+        }
         return null;
     }
 
+    /**
+     * @param string $value
+     * @return bool
+     */
     private function containsInvalidCharacters($value)
     {
-        if (ctype_punct()) {
-
+        if (!ctype_alnum($value)) {
+            foreach (str_split($value) as $char) {
+                if (!ctype_alnum($char) && !in_array($char, self::ALLOWED_NON_ALPHA_CHARACTERS)) {
+                    return true;
+                }
+            }
+            // allowed chars only
+            return false;
         }
-
+        return false;
     }
+
 
 
 }

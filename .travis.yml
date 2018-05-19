@@ -4,13 +4,13 @@ language: php
 sudo: false
 
 matrix:
+  allow_failures:
   include:
     - php: 7.1
     - php: 7.2
     - php: hhvm
     - php: nightly
   fast_finish: true
-  allow_failures:
     - php: hhvm
 
 install:
