@@ -1,0 +1,20 @@
+{
+    "name": "dameter/survey-abstracts",
+    "description": "dameter survey abstract classes",
+    "keywords": ["dameter"],
+    "homepage": "http://dameter.org",
+    "type": "project",
+    "license": "GPL-3.0",
+    "minimum-stability": "stable",
+    "require": {
+        "yiisoft/yii2": "~2.0.15"
+    },
+    "config": {
+        "process-timeout": 1800
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
+    }
+}
