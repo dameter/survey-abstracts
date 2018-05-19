@@ -2,13 +2,13 @@ language: php
 
 # faster builds on new travis setup not using sudo
 sudo: false
+php:
+  - 7.1
+  - 7.2
+  - hhvm
+  - nightly
+
 matrix:
-  include:
-    - php:
-      - 7.1
-      - 7.2
-      - hhvm
-      - nightly
   allow_failures:
     - php: nigthly
 
