@@ -31,7 +31,7 @@ abstract class BaseSurvey extends DActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function getQuestion()
+    public function getQuestions()
     {
         return $this->hasMany(BaseQuestion::class);
     }
