@@ -57,8 +57,10 @@ class VariableNameValidatorTest extends \Codeception\Test\Unit
             ["good是一个在中国的字符串", false], // chinese
             ["goodданные", false], // cyrillic
 
-            // don't end with full stop (command execute for SPSS)
-            ["variable.", false],
+            // don't end with non alphanum character
+            ["var.", false],
+            //["var-", false],
+            //["var", false],
 
         ];
 
@@ -119,8 +121,9 @@ class VariableNameValidatorTest extends \Codeception\Test\Unit
 
         $validator = new VariableNameValidator();
         // thi is a private method test, all values won't reach it
-        if ((is_string($value) && strlen($value) === 1) or !is_string($value) or (is_string($value) && strlen($value) > $validator->max)) {
-            $this->assertTrue(true);
+        if ((is_string($value) && strlen($value) === 1)
+            or !is_string($value)
+            or (is_string($value) && strlen($value) > $validator->max)) {
             return null;
         }
 

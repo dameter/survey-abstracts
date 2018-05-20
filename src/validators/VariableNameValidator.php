@@ -24,8 +24,8 @@ class VariableNameValidator extends StringValidator
     /** @var string $invalidCharsMsg A message if contains invalid characters */
     public $invalidCharsMsg;
 
-    /** @var string $endsWithPeriodMsg A message if ends with a period "." */
-    public $endsWithPeriodMsg;
+    /** @var string $endsWithInvalidMsg A message if ends with an invaid character */
+    public $endsWithInvalidMsg;
 
     const ALLOWED_NON_ALPHA_CHARACTERS = ['.', '-', '_'];
 
@@ -38,7 +38,7 @@ class VariableNameValidator extends StringValidator
         $this->containsSpacesMsg = Yii::t('dmabstract', "{attribute} must not contain spaces!");
         $this->invalidFirstChrMsg = Yii::t('dmabstract', "The first character of {attribute} must be a letter!");
         $this->invalidCharsMsg = Yii::t('dmabstract', "{attribute} contains invalid characters!");
-        $this->endsWithPeriodMsg = Yii::t('dmabstract', "{attribute} must not end with a period '.' !");
+        $this->endsWithInvalidMsg = Yii::t('dmabstract', "{attribute} ends with an invalid character!");
     }
 
 
@@ -64,13 +64,14 @@ class VariableNameValidator extends StringValidator
             $this->addError($model, $attribute, $this->invalidFirstChrMsg);
         }
 
+        if (in_array(substr($value, -1), self::ALLOWED_NON_ALPHA_CHARACTERS)) {
+            $this->addError($model, $attribute, $this->endsWithInvalidMsg);
+        }
+
         if ($this->containsInvalidCharacters($value)) {
             $this->addError($model, $attribute, $this->invalidCharsMsg);
         }
 
-        if (substr($value, -1) === '.') {
-            $this->addError($model, $attribute, $this->endsWithPeriodMsg);
-        }
         return null;
 
     }
@@ -92,11 +93,11 @@ class VariableNameValidator extends StringValidator
         if (!ctype_alpha($value[0])) {
             return [$this->invalidFirstChrMsg, []];
         }
+        if (in_array(substr($value, -1), self::ALLOWED_NON_ALPHA_CHARACTERS)) {
+            return [$this->endsWithInvalidMsg, []];
+        }
         if ($this->containsInvalidCharacters($value)) {
             return [$this->invalidCharsMsg, []];
-        }
-        if (substr($value, -1) === '.') {
-            return [$this->endsWithPeriodMsg, []];
         }
         return null;
     }
@@ -108,7 +109,12 @@ class VariableNameValidator extends StringValidator
     private function containsInvalidCharacters($value)
     {
         if (!ctype_alnum($value) && is_string($value)) {
-            foreach (str_split($value) as $char) {
+            $array = str_split($value);
+            foreach ($array as $char) {
+                // allowed non-alpha must not be in teh end of value
+                if (!ctype_alnum($char) && $char === end($array) && in_array($char, self::ALLOWED_NON_ALPHA_CHARACTERS)) {
+                    return true;
+                }
                 if (!ctype_alnum($char) && !in_array($char, self::ALLOWED_NON_ALPHA_CHARACTERS)) {
                     return true;
                 }
