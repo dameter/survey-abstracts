@@ -5,7 +5,7 @@ namespace dameter\abstracts\models;
 use dameter\abstracts\DActiveRecord;
 
 /**
- * Class WIthSurveyModel
+ * Class WithSurveyModel
  * @package dameter\abstracts\models
  *
  * @property BaseSurvey $survey
@@ -15,7 +15,18 @@ use dameter\abstracts\DActiveRecord;
 class WithSurveyModel extends DActiveRecord
 {
     /**
-     * @return \yii\db\ActiveQuery
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [['survey_id', 'code'], 'required'],
+            [['survey_id'], 'integer'],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function getSurvey()
     {

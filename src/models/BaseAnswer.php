@@ -21,16 +21,16 @@ abstract class BaseAnswer extends WithSurveyModel
      */
     public function rules()
     {
-        return [
-            [['answer_id', 'question_id', 'survey_id', 'code'], 'required'],
-            [['answer_id', 'question_id','survey_id'], 'integer'],
+        return array_merge(parent::rules(), [
+            [['question_id', 'code'], 'required'],
+            [['question_id'], 'integer'],
             [['code'], 'string', 'max' => 64],
-        ];
+        ]);
     }
 
 
     /**
-     * @return \yii\db\ActiveQuery
+     * {@inheritdoc}
      */
     public function getQuestion()
     {

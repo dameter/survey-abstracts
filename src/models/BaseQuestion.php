@@ -23,16 +23,15 @@ abstract class BaseQuestion extends WithSurveyModel
      */
     public function rules()
     {
-        return [
-            [['question_id', 'survey_id', 'code'], 'required'],
-            [['question_id','survey_id'], 'integer'],
+        return array_merge(parent::rules(), [
+            [['code'], 'required'],
             [['code'], VariableNameValidator::class],
-        ];
+        ]);
     }
 
 
     /**
-     * @return \yii\db\ActiveQuery
+     * {@inheritdoc}
      */
     public function getAnswers()
     {
