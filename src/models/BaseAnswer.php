@@ -14,7 +14,7 @@ namespace dameter\abstracts\models;
  * @package dameter\abstracts\models
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
  */
-abstract class BaseAnswer extends WithSurveyModel
+class BaseAnswer extends WithSurveyModel
 {
     /**
      * {@inheritdoc}

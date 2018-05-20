@@ -1,5 +1,6 @@
 <?php
-namespace models;
+
+namespace dameter\abstracts\tests\unit\models;
 
 class BaseQuestionTest extends \Codeception\Test\Unit
 {
