@@ -19,7 +19,7 @@ class VariableNameValidatorTest extends \Codeception\Test\Unit
      */
     public function provideValues()
     {
-        return [
+        return array_merge($this->provideContainsInvalidValues(), [
             [['an array'], false],
             ["String with spaces", false],
             [true, false],
@@ -49,6 +49,32 @@ class VariableNameValidatorTest extends \Codeception\Test\Unit
             ["Щ", false], // cyrillic
             ["漢", false], // chinese
 
+            // don't end with non alphanum character
+            ["var.", false],
+            ["var-", false],
+            ["var_", false],
+
+            // reserved values
+            ["all", false],
+            ["AND", false],
+            ["by", false],
+            ["eq", false],
+            ["GE", false],
+            ["gt", false],
+            ["le", false],
+            ["lt", false],
+            ["NE", false],
+            ["not", false],
+            ["OR", false],
+            ["to", false],
+            ["WITH", false],
+
+        ]);
+
+    }
+
+    public function provideContainsInvalidValues() {
+        return [
             // contains invalid chars
             ["some,punctuation", false],
             ["some%punctuation", false],
@@ -57,15 +83,8 @@ class VariableNameValidatorTest extends \Codeception\Test\Unit
             ["good是一个在中国的字符串", false], // chinese
             ["goodданные", false], // cyrillic
 
-            // don't end with non alphanum character
-            ["var.", false],
-            //["var-", false],
-            //["var", false],
-
         ];
-
     }
-
 
     /**
      * @param mixed $value
@@ -112,7 +131,7 @@ class VariableNameValidatorTest extends \Codeception\Test\Unit
     /**
      * @param mixed $value
      * @param boolean $isValid
-     * @dataProvider provideValues
+     * @dataProvider provideContainsInvalidValues
      * @return null
      * @throws \ReflectionException
      */
@@ -120,12 +139,6 @@ class VariableNameValidatorTest extends \Codeception\Test\Unit
 
 
         $validator = new VariableNameValidator();
-        // thi is a private method test, all values won't reach it
-        if ((is_string($value) && strlen($value) === 1)
-            or !is_string($value)
-            or (is_string($value) && strlen($value) > $validator->max)) {
-            return null;
-        }
 
         $method = new \ReflectionMethod(VariableNameValidator::class, 'containsInvalidCharacters');
         $method->setAccessible(true);

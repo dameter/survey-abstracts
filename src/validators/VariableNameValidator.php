@@ -27,7 +27,16 @@ class VariableNameValidator extends StringValidator
     /** @var string $endsWithInvalidMsg A message if ends with an invaid character */
     public $endsWithInvalidMsg;
 
+    /** @var string $reservedValueMsg A message if value is reserved */
+    public $reservedValueMsg;
+
     const ALLOWED_NON_ALPHA_CHARACTERS = ['.', '-', '_'];
+
+    /**
+     * @var string[] The values reserved by SPSS as non suitable variable names
+     * @link https://www.ibm.com/support/knowledgecenter/en/SSLVMB_23.0.0/spss/base/syn_variables_variable_names.html
+     */
+    const RESERVED_VALUES = ["ALL", "AND", "BY", "EQ", "GE", "GT", "LE", "LT", "NE", "NOT", "OR", "TO", "WITH"];
 
     /**
      * {@inheritdoc}
@@ -39,6 +48,7 @@ class VariableNameValidator extends StringValidator
         $this->invalidFirstChrMsg = Yii::t('dmabstract', "The first character of {attribute} must be a letter!");
         $this->invalidCharsMsg = Yii::t('dmabstract', "{attribute} contains invalid characters!");
         $this->endsWithInvalidMsg = Yii::t('dmabstract', "{attribute} ends with an invalid character!");
+        $this->reservedValueMsg = Yii::t('dmabstract', "{attribute} value is reserved for system use only!");
     }
 
 
@@ -68,6 +78,10 @@ class VariableNameValidator extends StringValidator
             $this->addError($model, $attribute, $this->endsWithInvalidMsg);
         }
 
+        if (in_array(strtoupper($value), self::RESERVED_VALUES)) {
+            $this->addError($model, $attribute, $this->reservedValueMsg);
+        }
+
         if ($this->containsInvalidCharacters($value)) {
             $this->addError($model, $attribute, $this->invalidCharsMsg);
         }
@@ -95,6 +109,9 @@ class VariableNameValidator extends StringValidator
         }
         if (in_array(substr($value, -1), self::ALLOWED_NON_ALPHA_CHARACTERS)) {
             return [$this->endsWithInvalidMsg, []];
+        }
+        if (in_array(strtoupper($value), self::RESERVED_VALUES)) {
+            return [$this->reservedValueMsg, []];
         }
         if ($this->containsInvalidCharacters($value)) {
             return [$this->invalidCharsMsg, []];
