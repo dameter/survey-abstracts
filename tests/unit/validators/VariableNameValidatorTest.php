@@ -14,6 +14,9 @@ use yii\base\DynamicModel;
 class VariableNameValidatorTest extends \Codeception\Test\Unit
 {
 
+    /**
+     * @return array [value, isValid, skipPrivateMethods]
+     */
     public function provideValues()
     {
         return [
@@ -42,6 +45,7 @@ class VariableNameValidatorTest extends \Codeception\Test\Unit
             ["Ä", false],
             ["-", false],
             ["_", false],
+            [".", false],
             ["Щ", false], // cyrillic
             ["漢", false], // chinese
 
@@ -53,44 +57,76 @@ class VariableNameValidatorTest extends \Codeception\Test\Unit
             ["good是一个在中国的字符串", false], // chinese
             ["goodданные", false], // cyrillic
 
-
-
         ];
 
     }
 
 
     /**
+     * @param mixed $value
+     * @param boolean $isValid
      * @dataProvider provideValues
      */
     public function testValidateValue($value, $isValid)
     {
-        $val = new VariableNameValidator();
+        $validator = new VariableNameValidator();
 
-        $message = "Failed with value " . is_string($value) ? $value : serialize($value);
+        $message = "Failed with value " . serialize($value);
         if ($isValid) {
-            $this->assertTrue($val->validate($value, $message));
+            $this->assertTrue($validator->validate($value), $message);
         } else {
-            $this->assertFalse($val->validate($value, $message));
+            $this->assertFalse($validator->validate($value), $message);
         }
     }
 
     /**
+     * @param mixed $value
+     * @param boolean $isValid
      * @dataProvider provideValues
      */
     public function testValidateAttribute($value, $isValid)
     {
-        $val = new VariableNameValidator();
+        $validator = new VariableNameValidator();
 
         $model = new DynamicModel(['myAttribute' => $value]);
         $model->addRule('myAttribute', VariableNameValidator::class)->validate();
-        $val->validateAttribute($model, 'myAttribute');
+        $validator->validateAttribute($model, 'myAttribute');
         $message = "Failed with value " . serialize($value);
         if ($isValid) {
             $this->assertEmpty($model->errors, $message);
         } else {
             $this->assertNotEmpty($model->errors, $message);
         }
+    }
+
+    /**
+     * @param mixed $value
+     * @param boolean $isValid
+     * @dataProvider provideValues
+     * @return null
+     * @throws \ReflectionException
+     */
+    public function testContainsInvalidCharacters($value, $isValid){
+
+
+        $validator = new VariableNameValidator();
+        // thi is a private method test, all values won't reach it
+        if ((is_string($value) && strlen($value) === 1) or !is_string($value) or (is_string($value) && strlen($value) > $validator->max)) {
+            $this->assertTrue(true);
+            return null;
+        }
+
+        $method = new \ReflectionMethod(VariableNameValidator::class, 'containsInvalidCharacters');
+        $method->setAccessible(true);
+        $message = "Failed with value " . serialize($value);
+
+        $result = $method->invokeArgs($validator, [$value]);
+        if ($isValid) {
+            $this->assertFalse($result, $message);
+        } else {
+            $this->assertTrue($result, $message);
+        }
+        return null;
     }
 
 

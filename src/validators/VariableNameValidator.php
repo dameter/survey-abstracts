@@ -93,7 +93,7 @@ class VariableNameValidator extends StringValidator
      */
     private function containsInvalidCharacters($value)
     {
-        if (!ctype_alnum($value)) {
+        if (!ctype_alnum($value) && is_string($value)) {
             foreach (str_split($value) as $char) {
                 if (!ctype_alnum($char) && !in_array($char, self::ALLOWED_NON_ALPHA_CHARACTERS)) {
                     return true;
