@@ -57,6 +57,9 @@ class VariableNameValidatorTest extends \Codeception\Test\Unit
             ["good是一个在中国的字符串", false], // chinese
             ["goodданные", false], // cyrillic
 
+            // don't end with full stop (command execute for SPSS)
+            ["variable.", false],
+
         ];
 
     }

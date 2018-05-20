@@ -24,6 +24,9 @@ class VariableNameValidator extends StringValidator
     /** @var string $containsInvalidCharsMsg A message if contains invalid characters */
     public $containsInvalidCharsMsg;
 
+    /** @var string $endsWithPeriodMsg A message if ends with a period "." */
+    public $endsWithPeriodMsg;
+
     const ALLOWED_NON_ALPHA_CHARACTERS = ['.', '-', '_'];
 
     /**
@@ -35,6 +38,7 @@ class VariableNameValidator extends StringValidator
         $this->containsSpacesMsg = \Yii::t('dmabstract', "{attribute} must not contain spaces!");
         $this->invalidFirstLetterMsg = \Yii::t('dmabstract', "The first character of {attribute} must be a letter!");
         $this->containsInvalidCharsMsg = \Yii::t('dmabstract', "{attribute} contains invalid characters!");
+        $this->endsWithPeriodMsg = \Yii::t('dmabstract', "{attribute} must not end with a period '.' !");
     }
 
 
@@ -46,19 +50,24 @@ class VariableNameValidator extends StringValidator
         parent::validateAttribute($model, $attribute);
 
         $value = $model->{$attribute};
+
         if (!is_string($value)) {
             $this->addError($model, $attribute, $this->message);
         } else {
-            if (strpos($model->{$attribute}, ' ') !== false) {
+            if (strpos($value, ' ') !== false) {
                 $this->addError($model, $attribute, $this->containsSpacesMsg);
             }
 
-            if (!ctype_alpha($model->{$attribute}[0])) {
+            if (!ctype_alpha($value[0])) {
                 $this->addError($model, $attribute, $this->invalidFirstLetterMsg);
             }
 
-            if ($this->containsInvalidCharacters($model->{$attribute})) {
+            if ($this->containsInvalidCharacters($value)) {
                 $this->addError($model, $attribute, $this->containsInvalidCharsMsg);
+            }
+
+            if (substr($value, -1) === '.') {
+                $this->addError($model, $attribute, $this->endsWithPeriodMsg);
             }
         }
 
@@ -83,6 +92,9 @@ class VariableNameValidator extends StringValidator
         }
         if ($this->containsInvalidCharacters($value)) {
             return [$this->containsInvalidCharsMsg, []];
+        }
+        if (substr($value, -1) === '.') {
+            return [$this->endsWithPeriodMsg, []];
         }
         return null;
     }
