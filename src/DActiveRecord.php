@@ -3,6 +3,7 @@
 namespace dameter\abstracts;
 
 
+use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
 
 class DActiveRecord extends ActiveRecord
@@ -10,20 +11,26 @@ class DActiveRecord extends ActiveRecord
     /** in case we would need to customize stuff */
 
     /**
+     * Get the primary key column as string if the one-column PK
      * @return string
+     * @throws NotSupportedException if multi-column PrimaryKey is used
      */
-    public static function primaryKey()
+    public static function primaryKeySingle()
     {
-        return static::tableName() . "_id";
+        if (count(self::primaryKey()) === 1) {
+            return static::tableName() . "_id";
+        }
+        throw new NotSupportedException('Not supported for multi-column primary keys');
     }
 
 
     /** {@inheritdoc} */
     public function hasMany($class, $link = null)
     {
+
         if (empty($link)) {
             /** @var DActiveRecord $class */
-            $link = [$class::primaryKey() => $class::primaryKey()];
+            $link = [$class::primaryKeySingle() => $class::primaryKeySingle()];
         }
         return parent::hasMany($class, $link);
     }
@@ -33,7 +40,7 @@ class DActiveRecord extends ActiveRecord
     {
         if (empty($link)) {
             /** @var DActiveRecord $class */
-            $link = [$class::primaryKey() => $class::primaryKey()];
+            $link = [$class::primaryKeySingle() => $class::primaryKeySingle()];
         }
         return parent::hasOne($class, $link);
     }
