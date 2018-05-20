@@ -3,7 +3,7 @@
 namespace dameter\abstracts\validators;
 
 use yii\validators\StringValidator;
-
+use Yii;
 
 /**
  * Class VariableNameValidator
@@ -18,11 +18,11 @@ class VariableNameValidator extends StringValidator
     /** @var string $containsSpacesMsg A message if the value contains spaces */
     public $containsSpacesMsg;
 
-    /** @var string $invalidFirstLetterMsg A message if invalid first letter */
-    public $invalidFirstLetterMsg;
+    /** @var string $invalidFirstChrMsg A message if invalid first letter */
+    public $invalidFirstChrMsg;
 
-    /** @var string $containsInvalidCharsMsg A message if contains invalid characters */
-    public $containsInvalidCharsMsg;
+    /** @var string $invalidCharsMsg A message if contains invalid characters */
+    public $invalidCharsMsg;
 
     /** @var string $endsWithPeriodMsg A message if ends with a period "." */
     public $endsWithPeriodMsg;
@@ -35,10 +35,10 @@ class VariableNameValidator extends StringValidator
     public function init()
     {
         parent::init();
-        $this->containsSpacesMsg = \Yii::t('dmabstract', "{attribute} must not contain spaces!");
-        $this->invalidFirstLetterMsg = \Yii::t('dmabstract', "The first character of {attribute} must be a letter!");
-        $this->containsInvalidCharsMsg = \Yii::t('dmabstract', "{attribute} contains invalid characters!");
-        $this->endsWithPeriodMsg = \Yii::t('dmabstract', "{attribute} must not end with a period '.' !");
+        $this->containsSpacesMsg = Yii::t('dmabstract', "{attribute} must not contain spaces!");
+        $this->invalidFirstChrMsg = Yii::t('dmabstract', "The first character of {attribute} must be a letter!");
+        $this->invalidCharsMsg = Yii::t('dmabstract', "{attribute} contains invalid characters!");
+        $this->endsWithPeriodMsg = Yii::t('dmabstract', "{attribute} must not end with a period '.' !");
     }
 
 
@@ -53,23 +53,25 @@ class VariableNameValidator extends StringValidator
 
         if (!is_string($value)) {
             $this->addError($model, $attribute, $this->message);
-        } else {
-            if (strpos($value, ' ') !== false) {
-                $this->addError($model, $attribute, $this->containsSpacesMsg);
-            }
-
-            if (!ctype_alpha($value[0])) {
-                $this->addError($model, $attribute, $this->invalidFirstLetterMsg);
-            }
-
-            if ($this->containsInvalidCharacters($value)) {
-                $this->addError($model, $attribute, $this->containsInvalidCharsMsg);
-            }
-
-            if (substr($value, -1) === '.') {
-                $this->addError($model, $attribute, $this->endsWithPeriodMsg);
-            }
+            return null;
         }
+
+        if (strpos($value, ' ') !== false) {
+            $this->addError($model, $attribute, $this->containsSpacesMsg);
+        }
+
+        if (!ctype_alpha($value[0])) {
+            $this->addError($model, $attribute, $this->invalidFirstChrMsg);
+        }
+
+        if ($this->containsInvalidCharacters($value)) {
+            $this->addError($model, $attribute, $this->invalidCharsMsg);
+        }
+
+        if (substr($value, -1) === '.') {
+            $this->addError($model, $attribute, $this->endsWithPeriodMsg);
+        }
+        return null;
 
     }
 
@@ -88,10 +90,10 @@ class VariableNameValidator extends StringValidator
             return [$this->containsSpacesMsg, []];
         }
         if (!ctype_alpha($value[0])) {
-            return [$this->invalidFirstLetterMsg, []];
+            return [$this->invalidFirstChrMsg, []];
         }
         if ($this->containsInvalidCharacters($value)) {
-            return [$this->containsInvalidCharsMsg, []];
+            return [$this->invalidCharsMsg, []];
         }
         if (substr($value, -1) === '.') {
             return [$this->endsWithPeriodMsg, []];
