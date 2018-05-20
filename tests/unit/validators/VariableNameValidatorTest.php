@@ -69,6 +69,7 @@ class VariableNameValidatorTest extends \Codeception\Test\Unit
      * @param mixed $value
      * @param boolean $isValid
      * @dataProvider provideValues
+     * @return null
      */
     public function testValidateValue($value, $isValid)
     {
@@ -77,15 +78,18 @@ class VariableNameValidatorTest extends \Codeception\Test\Unit
         $message = "Failed with value " . serialize($value);
         if ($isValid) {
             $this->assertTrue($validator->validate($value), $message);
-        } else {
-            $this->assertFalse($validator->validate($value), $message);
+            return null;
         }
+        $this->assertFalse($validator->validate($value), $message);
+        return null;
+
     }
 
     /**
      * @param mixed $value
      * @param boolean $isValid
      * @dataProvider provideValues
+     * @return null
      */
     public function testValidateAttribute($value, $isValid)
     {
@@ -97,9 +101,10 @@ class VariableNameValidatorTest extends \Codeception\Test\Unit
         $message = "Failed with value " . serialize($value);
         if ($isValid) {
             $this->assertEmpty($model->errors, $message);
-        } else {
-            $this->assertNotEmpty($model->errors, $message);
+            return null;
         }
+        $this->assertNotEmpty($model->errors, $message);
+        return null;
     }
 
     /**
@@ -126,9 +131,9 @@ class VariableNameValidatorTest extends \Codeception\Test\Unit
         $result = $method->invokeArgs($validator, [$value]);
         if ($isValid) {
             $this->assertFalse($result, $message);
-        } else {
-            $this->assertTrue($result, $message);
+            return null;
         }
+        $this->assertTrue($result, $message);
         return null;
     }
 
