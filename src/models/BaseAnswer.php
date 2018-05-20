@@ -2,7 +2,6 @@
 
 namespace dameter\abstracts\models;
 
-use dameter\abstracts\DActiveRecord;
 
 /**
  * Class BaseAnswer
@@ -10,13 +9,12 @@ use dameter\abstracts\DActiveRecord;
  * @property integer $question_id
  * @property integer $survey_id
  *
- * @method  BaseSurvey $survey
- * @method  BaseQuestion $question
+ * @property   BaseQuestion $question
  *
  * @package dameter\abstracts\models
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
  */
-abstract class BaseAnswer extends DActiveRecord
+abstract class BaseAnswer extends WithSurveyModel
 {
     /**
      * {@inheritdoc}
@@ -30,13 +28,6 @@ abstract class BaseAnswer extends DActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSurvey()
-    {
-        return $this->hasOne(BaseSurvey::class);
-    }
 
     /**
      * @return \yii\db\ActiveQuery

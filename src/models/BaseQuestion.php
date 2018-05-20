@@ -2,7 +2,6 @@
 
 namespace dameter\abstracts\models;
 
-use dameter\abstracts\DActiveRecord;
 use dameter\abstracts\validators\VariableNameValidator;
 
 
@@ -13,12 +12,11 @@ use dameter\abstracts\validators\VariableNameValidator;
  * @property string $code Question code is like eg a variable name in SPSS. A relatively short no-spaces survey-wide unique identifier
  *
  * @property BaseAnswer[] $answers
- * @method  BaseSurvey $survey
  *
  * @package dameter\abstracts\models
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
  */
-abstract class BaseQuestion extends DActiveRecord
+abstract class BaseQuestion extends WithSurveyModel
 {
     /**
      * {@inheritdoc}
@@ -41,12 +39,5 @@ abstract class BaseQuestion extends DActiveRecord
         return $this->hasMany(BaseSurvey::class);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSurvey()
-    {
-        return $this->hasOne(BaseSurvey::class);
-    }
 
 }
