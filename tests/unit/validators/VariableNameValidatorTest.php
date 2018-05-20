@@ -54,7 +54,7 @@ class VariableNameValidatorTest extends \Codeception\Test\Unit
             ["var-", false],
             ["var_", false],
 
-            // reserved values
+            // reserved  randomly upper &lowercases
             ["all", false],
             ["AND", false],
             ["by", false],

@@ -31,8 +31,11 @@ abstract class BaseSurvey extends DActiveRecord
     }
 
     /**
-     * @return BaseQuestion[]
+     * @return \yii\db\ActiveQuery
      */
-    public abstract function getQuestions();
+    public function getQuestion()
+    {
+        return $this->hasMany(BaseQuestion::class);
+    }
 
 }
