@@ -14,7 +14,7 @@ matrix:
   fast_finish: true
 
 install:
-  - travis_retry composer install --prefer-source --no-interaction
+  - travis_retry composer install --no-interaction
 
 script:
   - vendor/bin/codecept run
