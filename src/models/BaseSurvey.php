@@ -3,6 +3,7 @@
 namespace dameter\abstracts\models;
 
 use dameter\abstracts\DActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * Class BaseSurvey
@@ -38,9 +39,24 @@ abstract class BaseSurvey extends DActiveRecord
         return $this->hasMany(BaseQuestion::class);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     * @throws \yii\base\NotSupportedException
+     */
     public function getLanguages()
     {
+        $relations = $this->surveyLanguages();
+        $ids = ArrayHelper::getColumn($relations, SurveyLanguage::primaryKeySingle());
+        return Language::find()->andWhere(['in', Language::primaryKeySingle(), $ids]);
+    }
 
+    /**
+     * @return SurveyLanguage[]
+     * @throws \yii\base\NotSupportedException
+     */
+    private function surveyLanguages()
+    {
+        return SurveyLanguage::getChildren($this);
     }
 
 }
