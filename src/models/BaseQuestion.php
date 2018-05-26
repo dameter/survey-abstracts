@@ -4,7 +4,7 @@ namespace dameter\abstracts\models;
 
 use dameter\abstracts\interfaces\WithLanguageSettingInterface;
 use dameter\abstracts\validators\VariableNameValidator;
-
+use dameter\abstracts\WithLanguageSettingsModel;
 
 /**
  * Class BaseQuestion
@@ -13,26 +13,16 @@ use dameter\abstracts\validators\VariableNameValidator;
  * @property string $code Question code is like eg a variable name in SPSS. A relatively short no-spaces survey-wide unique identifier
  *
  * @property BaseAnswer[] $answers
+ * @property QuestionText[] $questionTexts in current language
+ * @property QuestionText[] $questionHelps in current language
  *
  * @package dameter\abstracts\models
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
  */
-class BaseQuestion extends WithSurveyModel implements WithLanguageSettingInterface
+class BaseQuestion extends WithLanguageSettingsModel implements WithLanguageSettingInterface
 {
-    /** @var Language */
-    public $language;
 
 
-    /**
-     * {@inheritdoc}
-     */
-    public function init()
-    {
-        parent::init();
-        if (empty($this->language)) {
-            $this->language = $this->survey->language;
-        }
-    }
 
     /**
      * {@inheritdoc}
@@ -45,9 +35,8 @@ class BaseQuestion extends WithSurveyModel implements WithLanguageSettingInterfa
         ]);
     }
 
-
     /**
-     * {@inheritdoc}
+     * @return \yii\db\ActiveQuery
      */
     public function getAnswers()
     {
@@ -56,9 +45,22 @@ class BaseQuestion extends WithSurveyModel implements WithLanguageSettingInterfa
 
 
     /**
-     * {@inheritdoc}
+     * @return \yii\db\ActiveQuery
      */
     public function getQuestionTexts()
     {
+        $query = $this->getTexts();
+        return $query->andWhere(['type_id' => QuestionText::TYPE_QUESTION]);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getQuestionHelps()
+    {
+        $query = $this->getTexts();
+        return $query->andWhere(['type_id' => QuestionText::TYPE_HELP]);
+    }
+
+
 }

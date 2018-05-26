@@ -1,8 +1,8 @@
 <?php
 
-namespace dameter\abstracts\models;
+namespace dameter\abstracts;
 
-use dameter\abstracts\DActiveRecord;
+use dameter\abstracts\models\BaseSurvey;
 
 /**
  * Class WithSurveyModel
