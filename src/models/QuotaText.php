@@ -16,6 +16,9 @@ namespace dameter\abstracts\models;
  */
 class QuotaText extends BaseLanguageSetting
 {
+    const TYPE_END_MESSAGE = 1;
+    const TYPE_END_URL = 1;
+
     public static $parentClass = Quota::class;
 
 }

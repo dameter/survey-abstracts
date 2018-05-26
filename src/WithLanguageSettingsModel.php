@@ -41,11 +41,12 @@ class WithLanguageSettingsModel extends WithSurveyModel
 
     /**
      * @return \yii\db\ActiveQuery
+     * @throws \yii\base\NotSupportedException
      */
     public function getTexts()
     {
         $query = $this->hasMany(static::$settingsClass, ['parent_id' => 'question_id']);
-        return $query->andWhere(['language_id' => $this->language->primaryKey]);
+        return $query->andWhere(['language_id' => $this->language->primaryKey])->indexBy(Language::primaryKeySingle());
     }
 
 }
