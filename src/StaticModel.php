@@ -10,14 +10,14 @@ abstract class StaticModel extends Model
     /**
      * @return array
      */
-    abstract function modelAttributes();
+    public abstract function modelsAttributes();
 
     /**
      * @return static[]
      */
     public function models() {
         $models = [];
-        foreach ($this->modelAttributes() as $key => $attributes) {
+        foreach ($this->modelsAttributes() as $key => $attributes) {
             $models[$key] = new static($attributes);
         }
         return $models;
@@ -28,7 +28,7 @@ abstract class StaticModel extends Model
      * @return static
      */
     public function findByKey($key) {
-        $models = $this->modelAttributes();
+        $models = $this->modelsAttributes();
         if (isset($models[$key])) {
             return new static($models[$key]);
         }
