@@ -9,7 +9,7 @@ use modules\abstracts\src\interfaces\Sortable;
  * Class SurveyLanguage
  * @property integer $survey_language_id
  *
- * @package modules\abstracts\src\models
+ * @package modules\abstracts\models
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
  */
 class SurveyLanguage extends ManyToManyModel implements Sortable

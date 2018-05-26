@@ -6,6 +6,11 @@ namespace dameter\abstracts;
 use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
 
+/**
+ * Class DActiveRecord
+ * @package dameter\abstracts
+ * @author Tõnis Ormisson <tonis@andmemasin.eu>
+ */
 class DActiveRecord extends ActiveRecord
 {
     /** in case we would need to customize stuff */

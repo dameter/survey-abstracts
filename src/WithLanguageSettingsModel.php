@@ -9,7 +9,7 @@ use dameter\abstracts\models\Language;
  * Class WithLanguageSettingsModel
  * @property BaseLanguageSetting[] $languageSettings
  *
- * @package dameter\abstracts\models
+ * @package dameter\abstracts
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
  */
 class WithLanguageSettingsModel extends WithSurveyModel

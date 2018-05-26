@@ -8,7 +8,7 @@ use dameter\abstracts\DActiveRecord;
 /**
  * Class Associations
  * Describes a set or Many2Many relations
- * @package dameter\abstracts\models
+ * @package dameter\abstracts
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
  */
 class Associations extends DActiveRecord

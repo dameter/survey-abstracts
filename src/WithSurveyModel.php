@@ -8,7 +8,7 @@ use dameter\abstracts\models\BaseSurvey;
  * Class WithSurveyModel
  * @property integer $survey_id
  *
- * @package dameter\abstracts\models
+ * @package dameter\abstracts
  * @property BaseSurvey $survey
  *
  * @author Tõnis Ormisson <tonis@andmemasin.eu>

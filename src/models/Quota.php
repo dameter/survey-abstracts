@@ -10,7 +10,7 @@ use dameter\abstracts\WithLanguageSettingsModel;
  * @property integer $quota_id
  * @property string $conditions
  *
- * @package dameter\models
+ * @package dameter\abstract\models
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
  */
 class Quota extends WithLanguageSettingsModel

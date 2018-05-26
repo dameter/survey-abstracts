@@ -11,7 +11,7 @@ use dameter\abstracts\DActiveRecord;
  * @property string $code
  * @property string $name
  *
- * @package andmemasin\language\models
+ * @package dameter\abstract\models
  * @author Tonis Ormisson <tonis@andmemasin.eu>
  */
 abstract class Language extends DActiveRecord
