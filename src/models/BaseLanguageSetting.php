@@ -2,6 +2,7 @@
 namespace dameter\abstracts\models;
 
 use dameter\abstracts\DActiveRecord;
+use dameter\abstracts\WithLanguageSettingsModel;
 
 /**
  * Class BaseLanguageSetting
