@@ -5,11 +5,14 @@ namespace dameter\abstracts\models;
 use dameter\abstracts\interfaces\WithLanguageSettingInterface;
 use dameter\abstracts\validators\VariableNameValidator;
 use dameter\abstracts\WithLanguageSettingsModel;
+use modules\abstracts\src\interfaces\Sortable;
 
 /**
  * Class BaseQuestion
  * @property integer $question_id
  * @property integer $survey_id
+ * @property integer $order
+ *
  * @property string $code Question code is like eg a variable name in SPSS. A relatively short no-spaces survey-wide unique identifier
  *
  * @property BaseAnswer[] $answers
@@ -19,7 +22,7 @@ use dameter\abstracts\WithLanguageSettingsModel;
  * @package dameter\abstracts\models
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
  */
-class BaseQuestion extends WithLanguageSettingsModel implements WithLanguageSettingInterface
+class BaseQuestion extends WithLanguageSettingsModel implements Sortable
 {
 
 
@@ -32,6 +35,7 @@ class BaseQuestion extends WithLanguageSettingsModel implements WithLanguageSett
         return array_merge(parent::rules(), [
             [['code'], 'required'],
             [['code'], VariableNameValidator::class],
+            [['order'], 'integer'],
         ]);
     }
 

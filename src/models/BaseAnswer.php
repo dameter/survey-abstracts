@@ -3,6 +3,8 @@
 namespace dameter\abstracts\models;
 
 use dameter\abstracts\interfaces\WithLanguageSettingInterface;
+use dameter\abstracts\WithLanguageSettingsModel;
+use modules\abstracts\src\interfaces\Sortable;
 
 
 /**
@@ -10,13 +12,14 @@ use dameter\abstracts\interfaces\WithLanguageSettingInterface;
  * @property integer $answer_id
  * @property integer $question_id
  * @property integer $survey_id
+ * @property integer $order
  *
  * @property   BaseQuestion $question
  *
  * @package dameter\abstracts\models
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
  */
-class BaseAnswer extends WithSurveyModel implements WithLanguageSettingInterface
+class BaseAnswer extends WithLanguageSettingsModel implements Sortable
 {
     /**
      * {@inheritdoc}
@@ -25,7 +28,7 @@ class BaseAnswer extends WithSurveyModel implements WithLanguageSettingInterface
     {
         return array_merge(parent::rules(), [
             [['question_id', 'code'], 'required'],
-            [['question_id'], 'integer'],
+            [['question_id', 'order'], 'integer'],
             [['code'], 'string', 'max' => 64],
         ]);
     }

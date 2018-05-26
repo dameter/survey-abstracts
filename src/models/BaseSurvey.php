@@ -3,6 +3,7 @@
 namespace dameter\abstracts\models;
 
 use dameter\abstracts\DActiveRecord;
+use dameter\abstracts\WithLanguageSettingsModel;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -18,7 +19,7 @@ use yii\helpers\ArrayHelper;
  * @package dameter\abstracts\models
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
  */
-abstract class BaseSurvey extends DActiveRecord
+abstract class BaseSurvey extends WithLanguageSettingsModel
 {
 
     /**
