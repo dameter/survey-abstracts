@@ -2,7 +2,6 @@
 
 namespace dameter\abstracts\models;
 
-use dameter\abstracts\interfaces\WithLanguageSettingInterface;
 use dameter\abstracts\WithLanguageSettingsModel;
 use modules\abstracts\src\interfaces\Sortable;
 
@@ -27,7 +26,7 @@ class BaseAnswer extends WithLanguageSettingsModel implements Sortable
     public function rules()
     {
         return array_merge(parent::rules(), [
-            [['question_id', 'code'], 'required'],
+            [['question_id', 'code', 'order'], 'required'],
             [['question_id', 'order'], 'integer'],
             [['code'], 'string', 'max' => 64],
         ]);

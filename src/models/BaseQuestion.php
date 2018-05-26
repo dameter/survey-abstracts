@@ -2,7 +2,6 @@
 
 namespace dameter\abstracts\models;
 
-use dameter\abstracts\interfaces\WithLanguageSettingInterface;
 use dameter\abstracts\validators\VariableNameValidator;
 use dameter\abstracts\WithLanguageSettingsModel;
 use modules\abstracts\src\interfaces\Sortable;
@@ -33,7 +32,7 @@ class BaseQuestion extends WithLanguageSettingsModel implements Sortable
     public function rules()
     {
         return array_merge(parent::rules(), [
-            [['code'], 'required'],
+            [['code', 'order'], 'required'],
             [['code'], VariableNameValidator::class],
             [['order'], 'integer'],
         ]);

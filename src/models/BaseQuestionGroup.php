@@ -25,6 +25,7 @@ abstract class BaseQuestionGroup extends WithLanguageSettingsModel implements So
     public function rules()
     {
         return array_merge(parent::rules(), [
+            [['order'], 'required'],
             [['order'], 'integer'],
         ]);
     }
