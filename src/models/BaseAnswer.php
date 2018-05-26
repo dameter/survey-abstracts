@@ -2,6 +2,8 @@
 
 namespace dameter\abstracts\models;
 
+use dameter\abstracts\interfaces\WithLanguageSettingInterface;
+
 
 /**
  * Class BaseAnswer
@@ -14,7 +16,7 @@ namespace dameter\abstracts\models;
  * @package dameter\abstracts\models
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
  */
-class BaseAnswer extends WithSurveyModel
+class BaseAnswer extends WithSurveyModel implements WithLanguageSettingInterface
 {
     /**
      * {@inheritdoc}
@@ -35,6 +37,14 @@ class BaseAnswer extends WithSurveyModel
     public function getQuestion()
     {
         return $this->hasOne(BaseQuestion::class);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getTexts()
+    {
+        return $this->hasMany(AnswerText::class);
     }
 
 }

@@ -11,5 +11,4 @@ namespace dameter\abstracts\interfaces;
 interface WithLanguageSettingInterface
 {
 
-
 }

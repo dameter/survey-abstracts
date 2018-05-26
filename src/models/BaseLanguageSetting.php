@@ -22,9 +22,14 @@ class BaseLanguageSetting extends DActiveRecord
     /** {@inheritdoc} */
     public function rules()
     {
+        /** @var WithLanguageSettingsModel $parentClass */
+        $parentClass = $this::$parentClass;
+
         return [
-            [['value'], 'required'],
+            [['value', $parentClass::primaryKeySingle()], 'required'],
             [['value'], 'string'],
+            [[$parentClass::primaryKeySingle()], 'integer'],
+            [[$parentClass::primaryKeySingle()], 'exist', 'skipOnError' => true, 'targetClass' => $parentClass, 'targetAttribute' => [$parentClass::primaryKeySingle() => $parentClass::primaryKeySingle()]],
         ];
     }
 

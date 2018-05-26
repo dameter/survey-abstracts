@@ -4,6 +4,11 @@ namespace dameter\abstracts;
 
 use yii\base\Model;
 
+/**
+ * Class StaticModel
+ * @package dameter\abstracts
+ * @author Tõnis Ormisson <tonis@andmemasin.eu>
+ */
 abstract class StaticModel extends Model
 {
 

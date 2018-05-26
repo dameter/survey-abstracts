@@ -2,6 +2,7 @@
 
 namespace dameter\abstracts\models;
 
+use dameter\abstracts\interfaces\WithLanguageSettingInterface;
 use dameter\abstracts\validators\VariableNameValidator;
 
 
@@ -16,8 +17,23 @@ use dameter\abstracts\validators\VariableNameValidator;
  * @package dameter\abstracts\models
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
  */
-abstract class BaseQuestion extends WithSurveyModel
+class BaseQuestion extends WithSurveyModel implements WithLanguageSettingInterface
 {
+    /** @var Language */
+    public $language;
+
+
+    /**
+     * {@inheritdoc}
+     */
+    public function init()
+    {
+        parent::init();
+        if (empty($this->language)) {
+            $this->language = $this->survey->language;
+        }
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -39,4 +55,10 @@ abstract class BaseQuestion extends WithSurveyModel
     }
 
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getQuestionTexts()
+    {
+    }
 }

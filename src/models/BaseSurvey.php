@@ -11,6 +11,8 @@ use dameter\abstracts\DActiveRecord;
  * @property string $name Survey name. Primarily meant for back-end usage.
  *
  * @property BaseQuestion[] $questions
+ * @property Language[] $languages
+ * @property Language $language
  *
  * @package dameter\abstracts\models
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
@@ -34,6 +36,11 @@ abstract class BaseSurvey extends DActiveRecord
     public function getQuestions()
     {
         return $this->hasMany(BaseQuestion::class);
+    }
+
+    public function getLanguages()
+    {
+
     }
 
 }
