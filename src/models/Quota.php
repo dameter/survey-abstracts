@@ -8,7 +8,6 @@ use dameter\abstracts\WithLanguageSettingsModel;
 /**
  * Class Quota
  * @property integer $quota_id
- * @property string $conditions
  *
  * @property QuotaText[] $endMessages
  * @property QuotaText[] $endUrls
@@ -26,7 +25,6 @@ class Quota extends WithLanguageSettingsModel
     public function rules()
     {
         return array_merge(parent::rules(), [
-            [['conditions'], 'string'],
         ]);
     }
 

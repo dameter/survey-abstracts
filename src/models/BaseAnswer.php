@@ -10,7 +10,6 @@ use modules\abstracts\src\interfaces\Sortable;
  * Class BaseAnswer
  * @property integer $answer_id
  * @property integer $question_id
- * @property integer $survey_id
  * @property integer $order
  *
  * @property   BaseQuestion $question
@@ -32,9 +31,8 @@ class BaseAnswer extends WithLanguageSettingsModel implements Sortable
         ]);
     }
 
-
     /**
-     * {@inheritdoc}
+     * @return \yii\db\ActiveQuery
      */
     public function getQuestion()
     {

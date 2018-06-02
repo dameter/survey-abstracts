@@ -2,14 +2,12 @@
 
 namespace dameter\abstracts\models;
 use dameter\abstracts\WithLanguageSettingsModel;
-use dameter\abstracts\WithSurveyModel;
 use modules\abstracts\src\interfaces\Sortable;
 
 
 /**
  * Class QuestionGroup
  * @property integer $question_group_id
- * @property integer $survey_id
  * @property integer $order
  *
  * @property BaseQuestion[] $questions
@@ -37,5 +35,6 @@ abstract class BaseQuestionGroup extends WithLanguageSettingsModel implements So
     {
         return $this->hasMany(BaseQuestion::class);
     }
+
 
 }

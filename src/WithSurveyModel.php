@@ -21,8 +21,9 @@ class WithSurveyModel extends DActiveRecord
     public function rules()
     {
         return [
-            [['survey_id', 'code'], 'required'],
+            [['survey_id'], 'required'],
             [['survey_id'], 'integer'],
+            [['survey_id'], 'exist', 'skipOnError' => true, 'targetClass' => BaseSurvey::class, 'targetAttribute' => ['survey_id' => 'survey_id']],
         ];
     }
 

@@ -3,7 +3,6 @@
 namespace dameter\abstracts\models;
 
 use dameter\abstracts\DActiveRecord;
-use dameter\abstracts\WithLanguageSettingsModel;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -11,6 +10,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property int $survey_id
  * @property string $name Survey name. Primarily meant for back-end usage.
+ * @property int $language_id base language id
  *
  * @property BaseQuestion[] $questions
  * @property Language[] $languages
@@ -19,7 +19,7 @@ use yii\helpers\ArrayHelper;
  * @package dameter\abstracts\models
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
  */
-abstract class BaseSurvey extends WithLanguageSettingsModel
+abstract class BaseSurvey extends DActiveRecord
 {
 
     /**
@@ -28,16 +28,18 @@ abstract class BaseSurvey extends WithLanguageSettingsModel
     public function rules()
     {
         return [
-             [['name'], 'string', 'max' => 254],
+            [['name'], 'string', 'max' => 254],
+            [['language_id'], 'integer'],
+            [['language_id'], 'exist', 'skipOnError' => true, 'targetClass' => Language::class, 'targetAttribute' => ['language_id' => 'language_id']],
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getQuestions()
+    public function getLanguage()
     {
-        return $this->hasMany(BaseQuestion::class);
+        return $this->hasMany(Language::class);
     }
 
     /**
@@ -50,6 +52,15 @@ abstract class BaseSurvey extends WithLanguageSettingsModel
         $ids = ArrayHelper::getColumn($relations, SurveyLanguage::primaryKeySingle());
         return Language::find()->andWhere(['in', Language::primaryKeySingle(), $ids]);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getQuestions()
+    {
+        return $this->hasMany(BaseQuestion::class);
+    }
+
 
     /**
      * @return SurveyLanguage[]
