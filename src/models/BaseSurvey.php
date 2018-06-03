@@ -15,6 +15,7 @@ use yii\helpers\ArrayHelper;
  * @property BaseQuestion[] $questions
  * @property Language[] $languages
  * @property Language $language
+ * @property Condition[] $conditions All survey conditions
  *
  * @package dameter\abstracts\models
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
@@ -59,6 +60,14 @@ abstract class BaseSurvey extends DActiveRecord
     public function getQuestions()
     {
         return $this->hasMany(BaseQuestion::class);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getConditions()
+    {
+        return $this->hasMany(Condition::class);
     }
 
 

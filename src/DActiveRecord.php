@@ -42,10 +42,8 @@ class DActiveRecord extends ActiveRecord
     /** {@inheritdoc} */
     public function hasMany($class, $link = null)
     {
-
         if (empty($link)) {
-            /** @var DActiveRecord $class */
-            $link = [$class::primaryKeySingle() => $class::primaryKeySingle()];
+            $link = [static::primaryKeySingle() => static::primaryKeySingle()];
         }
         return parent::hasMany($class, $link);
     }
@@ -54,8 +52,7 @@ class DActiveRecord extends ActiveRecord
     public function hasOne($class, $link = null)
     {
         if (empty($link)) {
-            /** @var DActiveRecord $class */
-            $link = [$class::primaryKeySingle() => $class::primaryKeySingle()];
+            $link = [static::primaryKeySingle() => static::primaryKeySingle()];
         }
         return parent::hasOne($class, $link);
     }

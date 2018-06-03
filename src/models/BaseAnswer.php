@@ -2,6 +2,7 @@
 
 namespace dameter\abstracts\models;
 
+use dameter\abstracts\interfaces\Conditionable;
 use dameter\abstracts\WithLanguageSettingsModel;
 use dameter\abstracts\interfaces\Sortable;
 
@@ -12,12 +13,14 @@ use dameter\abstracts\interfaces\Sortable;
  * @property integer $question_id
  * @property integer $order
  *
- * @property   BaseQuestion $question
+ * @property BaseQuestion $question
+ * @property ModelCondition $modelCondition
+ * @property Condition $condition
  *
  * @package dameter\abstracts\models
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
  */
-class BaseAnswer extends WithLanguageSettingsModel implements Sortable
+class BaseAnswer extends WithLanguageSettingsModel implements Sortable, Conditionable
 {
 
     public static $settingsClass = AnswerText::class;
@@ -42,5 +45,23 @@ class BaseAnswer extends WithLanguageSettingsModel implements Sortable
         return $this->hasOne(BaseQuestion::class);
     }
 
+    /**
+     * @return Condition
+     */
+    public function getCondition()
+    {
+        if (!empty($this->modelCondition)) {
+            return $this->modelCondition->child;
+        }
+        return null;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getModelCondition()
+    {
+        return $this->hasOne(ModelCondition::class);
+    }
 
 }
