@@ -23,8 +23,7 @@ use modules\abstracts\src\interfaces\Sortable;
  */
 class BaseQuestion extends WithLanguageSettingsModel implements Sortable
 {
-
-
+    public static $settingsClass = QuestionText::class;
 
     /**
      * {@inheritdoc}

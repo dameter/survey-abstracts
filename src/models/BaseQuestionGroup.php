@@ -1,6 +1,7 @@
 <?php
 
 namespace dameter\abstracts\models;
+
 use dameter\abstracts\WithLanguageSettingsModel;
 use modules\abstracts\src\interfaces\Sortable;
 
@@ -17,6 +18,8 @@ use modules\abstracts\src\interfaces\Sortable;
  */
 abstract class BaseQuestionGroup extends WithLanguageSettingsModel implements Sortable
 {
+    public static $settingsClass = QuestionGroupText::class;
+
     /**
      * {@inheritdoc}
      */

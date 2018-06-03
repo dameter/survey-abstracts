@@ -45,7 +45,7 @@ class WithLanguageSettingsModel extends WithSurveyModel
      */
     public function getTexts()
     {
-        $query = $this->hasMany(static::$settingsClass, ['parent_id' => 'question_id']);
+        $query = $this->hasMany(static::$settingsClass, ['parent_id' => static::primaryKeySingle()]);
         return $query->andWhere(['language_id' => $this->language->primaryKey])->indexBy(Language::primaryKeySingle());
     }
 

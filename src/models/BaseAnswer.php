@@ -19,6 +19,9 @@ use modules\abstracts\src\interfaces\Sortable;
  */
 class BaseAnswer extends WithLanguageSettingsModel implements Sortable
 {
+
+    public static $settingsClass = AnswerText::class;
+
     /**
      * {@inheritdoc}
      */
@@ -39,12 +42,5 @@ class BaseAnswer extends WithLanguageSettingsModel implements Sortable
         return $this->hasOne(BaseQuestion::class);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getTexts()
-    {
-        return $this->hasMany(AnswerText::class);
-    }
 
 }
