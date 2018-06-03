@@ -3,6 +3,7 @@
 namespace dameter\abstracts\models;
 
 use dameter\abstracts\DActiveRecord;
+use dameter\abstracts\interfaces\Translatable;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -13,15 +14,28 @@ use yii\helpers\ArrayHelper;
  * @property int $language_id base language id
  *
  * @property BaseQuestion[] $questions
- * @property Language[] $languages
+ * @property Language[] $languages Survey base Language
  * @property Language $language
  * @property Condition[] $conditions All survey conditions
  *
  * @package dameter\abstracts\models
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
  */
-abstract class BaseSurvey extends DActiveRecord
+class BaseSurvey extends DActiveRecord implements Translatable
 {
+    /** @var Language $runLanguage The language survey is being filled */
+    public $runLanguage;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function init()
+    {
+        parent::init();
+        if (empty($this->runLanguage)) {
+            $this->runLanguage = $this->language;
+        }
+    }
 
     /**
      * {@inheritdoc}
@@ -80,4 +94,12 @@ abstract class BaseSurvey extends DActiveRecord
         return SurveyLanguage::getChildren($this);
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getTexts()
+    {
+        $query = $this->hasMany(SurveyText::class, ['parent_id' => static::primaryKeySingle()]);
+        return $query->andWhere(['language_id' => $this->runLanguage->primaryKey])->indexBy(Language::primaryKeySingle());
+    }
 }

@@ -16,7 +16,7 @@ use dameter\abstracts\interfaces\Sortable;
  * @property BaseQuestion $question
  * @property ModelCondition $modelCondition
  * @property Condition $condition
- *K
+ *
  * @package dameter\abstracts\models
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
  */

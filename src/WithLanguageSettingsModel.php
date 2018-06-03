@@ -2,6 +2,7 @@
 
 namespace dameter\abstracts;
 
+use dameter\abstracts\interfaces\Translatable;
 use dameter\abstracts\models\BaseLanguageSetting;
 use dameter\abstracts\models\Language;
 
@@ -12,7 +13,7 @@ use dameter\abstracts\models\Language;
  * @package dameter\abstracts
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
  */
-class WithLanguageSettingsModel extends WithSurveyModel
+class WithLanguageSettingsModel extends WithSurveyModel implements Translatable
 {
 
     /** @var string */

@@ -10,7 +10,7 @@ use dameter\abstracts\models\BaseLanguageSetting;
  * @package dameter\abstracts\interfaces
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
  */
-interface WithLanguageSettingInterface
+interface Translatable
 {
     /**
      * @return BaseLanguageSetting[]
