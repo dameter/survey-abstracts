@@ -68,7 +68,7 @@ class ManyToManyModel extends DActiveRecord
      */
     public function getChild() {
         /** @var DActiveRecord $className */
-        $className = static::$parentClass;
+        $className = static::$childClass;
         return $this->hasOne($className);
     }
 

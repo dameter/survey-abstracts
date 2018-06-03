@@ -1,6 +1,6 @@
 <?php
 
-namespace modules\abstracts\src\interfaces;
+namespace dameter\abstracts\interfaces;
 
 
 interface Sortable

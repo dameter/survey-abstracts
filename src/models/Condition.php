@@ -1,13 +1,13 @@
 <?php
 
-namespace dameter\abstracts\src\models;
+namespace dameter\abstracts\models;
 
 use dameter\abstracts\validators\VariableNameValidator;
 use dameter\abstracts\WithSurveyModel;
 
 /**
  * Class Condition
- * @package dameter\abstracts\src\models
+ * @package dameter\abstracts\models
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
  *
  * @property integer $condition_id

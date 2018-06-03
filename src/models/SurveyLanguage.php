@@ -3,7 +3,7 @@
 namespace dameter\abstracts\models;
 
 use dameter\abstracts\ManyToManyModel;
-use modules\abstracts\src\interfaces\Sortable;
+use dameter\abstracts\interfaces\Sortable;
 
 /**
  * Class SurveyLanguage
