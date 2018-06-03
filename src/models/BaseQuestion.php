@@ -12,6 +12,7 @@ use dameter\abstracts\interfaces\Sortable;
  * @property integer $question_id
  * @property integer $survey_id
  * @property integer $order
+ * @property integer $question_type_id
  *
  * @property string $code Question code is like eg a variable name in SPSS. A relatively short no-spaces survey-wide unique identifier
  *
@@ -20,6 +21,7 @@ use dameter\abstracts\interfaces\Sortable;
  * @property QuestionText[] $questionHelps in current language
  * @property ModelCondition $modelCondition
  * @property Condition $condition
+ * @property QuestionType $questionType
  *
  * @package dameter\abstracts\models
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
@@ -34,9 +36,9 @@ class BaseQuestion extends WithLanguageSettingsModel implements Sortable, Condit
     public function rules()
     {
         return array_merge(parent::rules(), [
-            [['code', 'order'], 'required'],
+            [['code', 'order', 'question_type_id'], 'required'],
             [['code'], VariableNameValidator::class],
-            [['order'], 'integer'],
+            [['order', 'question_type_id'], 'integer'],
         ]);
     }
 
@@ -84,6 +86,14 @@ class BaseQuestion extends WithLanguageSettingsModel implements Sortable, Condit
     public function getModelCondition()
     {
         return $this->hasOne(ModelCondition::class);
+    }
+
+    /**
+     * @return QuestionType
+     */
+    public function getQuestionType()
+    {
+        return (new QuestionType())->findByKey($this->question_type_id);
     }
 
 }
