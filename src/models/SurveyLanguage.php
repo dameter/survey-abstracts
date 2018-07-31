@@ -18,4 +18,21 @@ class SurveyLanguage extends ManyToManyModel implements Sortable
     public static  $childClass = Language::class;
 
 
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return "{{survey_language}}";
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function primaryKey()
+    {
+        return ["survey_language_id"];
+    }
+
+
 }

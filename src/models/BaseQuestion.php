@@ -33,6 +33,22 @@ class BaseQuestion extends WithLanguageSettingsModel implements Sortable, Condit
     /**
      * {@inheritdoc}
      */
+    public static function tableName()
+    {
+        return "{{question}}";
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function primaryKey()
+    {
+        return ["question_id"];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function rules()
     {
         return array_merge(parent::rules(), [

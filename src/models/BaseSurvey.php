@@ -40,6 +40,22 @@ class BaseSurvey extends DActiveRecord implements Translatable
     /**
      * {@inheritdoc}
      */
+    public static function tableName()
+    {
+        return "{{survey}}";
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function primaryKey()
+    {
+        return ["survey_id"];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function rules()
     {
         return [

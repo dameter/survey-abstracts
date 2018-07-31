@@ -2,24 +2,50 @@
 
 namespace dameter\abstracts\tests\unit\models;
 
-class BaseQuestionTest extends \Codeception\Test\Unit
+require_once __DIR__ . "/TestBase.php";
+
+use common\modules\abstracts\tests\unit\models\TestBase;
+use dameter\abstracts\models\BaseAnswer;
+use dameter\abstracts\models\BaseQuestion;
+use dameter\abstracts\models\Language;
+use dameter\abstracts\models\QuestionType;
+use yii\db\ActiveQuery;
+use Codeception\Stub;
+
+class BaseQuestionTest extends TestBase
 {
+
+    /** @var BaseQuestion */
+    protected $model;
+
+    protected $modelClass = BaseQuestion::class;
+
+    public function baseModelAttributes()
+    {
+        return [
+            'question_id' => 1,
+            'survey_id' => 1,
+            'order' => 0,
+            'code' => "Q1",
+            'question_type_id' => QuestionType::TYPE_SINGLE_CHOICE,
+        ];
+    }
+
+    public function testGetAnswers() {
+        $this->assertInstanceOf(ActiveQuery::class, $this->model->getAnswers());
+    }
+
     /**
-     * @var \UnitTester
+     * Returns a good working LimeSurvey collector
+     * @return BaseQuestion
      */
-    protected $tester;
-    
-    protected function _before()
+    public function baseObject()
     {
-    }
-
-    protected function _after()
-    {
-    }
-
-    // tests
-    public function testSomeFeature()
-    {
-
+        /** @var BaseQuestion $model */
+        $model = Stub::make($this->modelClass, [
+            'attributes' => array_keys($this->baseModelAttributes()),
+        ]);
+        $model->setAttributes($this->baseModelAttributes());
+        return $model;
     }
 }

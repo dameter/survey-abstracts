@@ -28,6 +28,22 @@ abstract class Language extends DActiveRecord
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return "{{language}}";
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function primaryKey()
+    {
+        return ["language_id"];
+    }
+
 
     /**
      * @param string $code

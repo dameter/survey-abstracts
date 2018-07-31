@@ -23,20 +23,12 @@ class DActiveRecord extends ActiveRecord
      */
     public static function primaryKeySingle()
     {
-        if (count(self::primaryKey()) === 1) {
+        if (count(static::primaryKey()) === 1) {
             return static::tableName() . "_id";
         }
         throw new NotSupportedException('Not supported for multi-column primary keys');
     }
 
-    /**
-     * @return string[]|void
-     * @throws NotSupportedException
-     */
-    public static function primaryKey()
-    {
-        throw new NotSupportedException('use primaryKeySingle() instead');
-    }
 
 
     /** {@inheritdoc} */

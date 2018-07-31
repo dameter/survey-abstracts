@@ -1,6 +1,7 @@
 .*
 !.gitignore
 !.travis.yml
+!.gitkeep
 
 # composer vendor dir
 /vendor
