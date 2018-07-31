@@ -5,7 +5,7 @@ use yii\base\InvalidConfigException;
 use yii\base\Model;
 
 /**
- * Class Field describes a column in responses data table
+ * Class Field describes a column in responses data
  *
  * @property string $type technical type for DB
  * @property string $name fieldName - actual column name in DB
@@ -88,9 +88,8 @@ class Field extends Model
                 return "text";
             }
             return $this->question->questionType->fieldType;
-        } else {
-            return $this->systemFieldType();
         }
+        return $this->systemFieldType();
     }
 
 

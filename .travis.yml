@@ -17,4 +17,6 @@ install:
   - travis_retry composer install --no-interaction
 
 script:
-  - vendor/bin/codecept run
+  - vendor/bin/codecept run --coverage --coverage-xml
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
