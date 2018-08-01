@@ -28,6 +28,23 @@ class BaseAnswer extends WithLanguageSettingsModel implements Sortable, Conditio
     /**
      * {@inheritdoc}
      */
+    public static function tableName()
+    {
+        return "answer";
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function primaryKey()
+    {
+        return ["answer_id"];
+    }
+
+
+    /**
+     * {@inheritdoc}
+     */
     public function rules()
     {
         return array_merge(parent::rules(), [

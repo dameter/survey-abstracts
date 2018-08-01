@@ -12,6 +12,22 @@ namespace dameter\abstracts\models;
  */
 class AnswerText extends BaseLanguageSetting
 {
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return "answer_text";
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function primaryKey()
+    {
+        return ["answer_text_id"];
+    }
+
     /** {@inheritdoc} */
     public static $parentClass = BaseAnswer::class;
 }

@@ -42,7 +42,7 @@ class BaseSurvey extends DActiveRecord implements Translatable
      */
     public static function tableName()
     {
-        return "{{survey}}";
+        return "survey";
     }
 
     /**

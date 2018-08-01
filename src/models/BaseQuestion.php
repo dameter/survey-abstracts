@@ -35,7 +35,7 @@ class BaseQuestion extends WithLanguageSettingsModel implements Sortable, Condit
      */
     public static function tableName()
     {
-        return "{{question}}";
+        return "question";
     }
 
     /**
