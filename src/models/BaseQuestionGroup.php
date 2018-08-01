@@ -26,6 +26,22 @@ class BaseQuestionGroup extends WithLanguageSettingsModel implements Sortable, C
     /**
      * {@inheritdoc}
      */
+    public static function tableName()
+    {
+        return "question_group";
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function primaryKey()
+    {
+        return ["question_group_id"];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function rules()
     {
         return array_merge(parent::rules(), [
