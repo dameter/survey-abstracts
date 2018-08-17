@@ -14,7 +14,7 @@ use dameter\abstracts\DActiveRecord;
  * @package dameter\abstract\models
  * @author Tonis Ormisson <tonis@andmemasin.eu>
  */
-abstract class Language extends DActiveRecord
+class Language extends DActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -33,7 +33,7 @@ abstract class Language extends DActiveRecord
      */
     public static function tableName()
     {
-        return "{{language}}";
+        return "language";
     }
 
     /**
@@ -49,5 +49,7 @@ abstract class Language extends DActiveRecord
      * @param string $code
      * @return static
      */
-    public abstract function findByCode($code);
+    public function findByCode($code) {
+        return self::findOne(['code' => $code]);
+    }
 }
