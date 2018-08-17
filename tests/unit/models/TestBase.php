@@ -24,6 +24,11 @@ abstract class TestBase extends \Codeception\Test\Unit
     /** @var string */
     protected $modelClass;
 
+    /**
+     * @var array methods to inject into sub
+     */
+    protected $methods = [];
+
 
     protected function _before()
     {
@@ -41,9 +46,9 @@ abstract class TestBase extends \Codeception\Test\Unit
     public function baseObject()
     {
         /** @var DActiveRecord $model */
-        $model = Stub::make($this->modelClass, [
+        $model = Stub::make($this->modelClass, array_merge($this->methods, [
             'attributes' => array_keys($this->baseModelAttributes()),
-        ]);
+        ]));
         $model->setAttributes($this->baseModelAttributes());
         return $model;
     }
