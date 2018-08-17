@@ -5,12 +5,7 @@ namespace dameter\abstracts\tests\unit\models;
 require_once __DIR__ . "/TestBase.php";
 
 use common\modules\abstracts\tests\unit\models\TestBase;
-use dameter\abstracts\models\BaseAnswer;
-use dameter\abstracts\models\BaseQuestion;
 use dameter\abstracts\models\BaseSurvey;
-use dameter\abstracts\models\Language;
-use dameter\abstracts\models\QuestionType;
-use dameter\abstracts\models\SurveyLanguage;
 use yii\db\ActiveQuery;
 use Codeception\Stub;
 

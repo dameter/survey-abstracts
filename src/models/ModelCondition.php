@@ -26,6 +26,30 @@ class ModelCondition extends ManyToManyModel
 {
     public static $childClass = Condition::class;
 
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return "model_condition";
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function primaryKey()
+    {
+        return ["model_condition_id"];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function primaryKeySingle()
+    {
+        return "model_condition_id";
+    }
+
     /** {@inheritdoc} */
     public function rules()
     {
