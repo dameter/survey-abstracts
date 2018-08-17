@@ -7,6 +7,9 @@ modules:
     enabled:
         - Asserts
         - \Helper\Unit
+        - Yii2:
+            configFile: tests/_config/test.php
+            part: init
 coverage:
     enabled: true
     include:

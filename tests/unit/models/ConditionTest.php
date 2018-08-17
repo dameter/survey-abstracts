@@ -5,8 +5,6 @@ namespace dameter\abstracts\tests\unit\models;
 require_once __DIR__ . "/TestBase.php";
 
 use common\modules\abstracts\tests\unit\models\TestBase;
-use dameter\abstracts\models\AnswerText;
-use dameter\abstracts\models\BaseQuestionGroup;
 use dameter\abstracts\models\Condition;
 use yii\db\ActiveQuery;
 

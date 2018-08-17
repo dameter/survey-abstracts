@@ -5,15 +5,18 @@ namespace dameter\abstracts;
 
 /**
  * Class StaticModel
- * @property integer $id primary key
- * @property string $label
- * @property integer $order
- *
+
  * @package dameter\abstracts
  * @author Tõnis Ormisson <tonis@andmemasin.eu>
  */
 abstract class TypeModel extends StaticModel
 {
+    /** @var integer $id primary key*/
+    public $id;
+    /** @var string $label */
+    public $label;
+    /** @var integer $order */
+    public $order;
 
     /**
      * {@inheritdoc}

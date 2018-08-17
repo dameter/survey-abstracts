@@ -68,15 +68,6 @@ class Field extends Model
     }
 
 
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'name' => \Yii::t('dmadmin', "Name"),
-        ];
-    }
 
     /**
      * @return string
@@ -107,7 +98,7 @@ class Field extends Model
                 return "string(31)";
                 break;
             case self::SYSFIELD_STARTLANGUAGE:
-                return "string(31) string(20) NOT NULL";
+                return "string(20) NOT NULL";
                 break;
             case self::SYSFIELD_STARTDATE:
             case self::SYSFIELD_DATESTAMP:
@@ -155,14 +146,21 @@ class Field extends Model
      */
     public function getTokenFieldCollation()
     {
-        $driverName = \Yii::$app->db->driverName;
+        $driverName = $this->getDriverName();
         if ($driverName === 'mysql') {
             return " COLLATE 'utf8mb4_bin'";
         }
         if ($driverName == 'sqlsrv' || $driverName == 'dblib' || $driverName == 'mssql') {
-            return " COLLATE SQL_Latin1_General_CP1_CS_AS";
+            return " COLLATE 'SQL_Latin1_General_CP1_CS_AS'";
         }
         throw new \Exception('Unsupported database engine ' . $driverName);
+    }
+
+    /**
+     * @return string
+     */
+    public function getDriverName() {
+        return \Yii::$app->db->driverName;
     }
 
 
