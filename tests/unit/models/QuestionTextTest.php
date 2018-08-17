@@ -5,9 +5,7 @@ namespace dameter\abstracts\tests\unit\models;
 require_once __DIR__ . "/TestBase.php";
 
 use common\modules\abstracts\tests\unit\models\TestBase;
-use dameter\abstracts\models\ModelCondition;
 use dameter\abstracts\models\QuestionText;
-use yii\db\ActiveQuery;
 
 class QuestionTextTest extends TestBase
 {
@@ -26,7 +24,7 @@ class QuestionTextTest extends TestBase
             'question_id' => 1,
             'type_id' => 1,
             'language_id' => 1,
-            'value' => 'thsis is a question',
+            'value' => 'this is a question',
         ];
     }
 
