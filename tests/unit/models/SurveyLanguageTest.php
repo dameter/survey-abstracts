@@ -9,7 +9,7 @@ use common\modules\abstracts\tests\unit\models\TestBase;
 use dameter\abstracts\models\Quota;
 use dameter\abstracts\models\SurveyLanguage;
 
-class QuotaTest extends TestBase
+class SurveyLanguageTest extends TestBase
 {
 
     /** @var SurveyLanguage */
