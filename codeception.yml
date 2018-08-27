@@ -12,5 +12,5 @@ coverage:
     enabled: true
     include:
         - src/*
-    excelude:
+    exclude:
         - src/messages/*
