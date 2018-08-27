@@ -17,13 +17,20 @@ class SurveyLanguage extends ManyToManyModel implements Sortable
     public static  $parentClass = BaseSurvey::class;
     public static  $childClass = Language::class;
 
+    /** {@inheritdoc} */
+    public function rules()
+    {
+        return array_merge(parent::rules(), [
+            [['survey_id', 'language_id'], 'integer'],
+        ]);
+    }
 
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return "{{survey_language}}";
+        return "survey_language";
     }
 
     /**
