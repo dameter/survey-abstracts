@@ -28,5 +28,4 @@ class QuestionTextTest extends TestBase
         ];
     }
 
-
 }
