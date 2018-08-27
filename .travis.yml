@@ -21,3 +21,5 @@ coverage:
   remote: false
   include:
       - src/*
+  exclude:
+      - src/messages/*
