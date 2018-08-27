@@ -8,6 +8,7 @@ use dameter\abstracts\WithLanguageSettingsModel;
 /**
  * Class Quota
  * @property integer $quota_id
+ * @property integer $type_id
  *
  * @property QuotaText[] $endMessages
  * @property QuotaText[] $endUrls
@@ -18,6 +19,22 @@ use dameter\abstracts\WithLanguageSettingsModel;
 class Quota extends WithLanguageSettingsModel
 {
     public static $settingsClass = QuotaText::class;
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return "quota";
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function primaryKey()
+    {
+        return ["quota_id"];
+    }
 
     /**
      * {@inheritdoc}
